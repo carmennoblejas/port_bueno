@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="port_bueno">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/PaqI10/port_bueno.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

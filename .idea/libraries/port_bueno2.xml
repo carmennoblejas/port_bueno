@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="port_bueno2">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/out/artifacts/port_bueno_jar/port_bueno.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
