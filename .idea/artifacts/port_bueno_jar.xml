@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="port_bueno:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/port_bueno_jar</output-path>
+    <root id="archive" name="port_bueno.jar">
+      <element id="module-output" name="port_bueno" />
+    </root>
+  </artifact>
+</component>

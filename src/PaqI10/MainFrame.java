@@ -3,7 +3,7 @@ package PaqI10;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.FlowLayout;
+
 public class MainFrame extends JFrame {
     private JPanel mainPanel;
     private JLabel IDNumberLabel;
@@ -34,6 +34,16 @@ public class MainFrame extends JFrame {
     private JTextArea textArea2;
     private JTextField columnNumberTextField;
     private JTextArea descriptionIsShownHereTextArea;
+    private JTextField hubnumtextField;
+    private JLabel labelIcon;
+
+    public JTextField getHubnumtextField() {
+        return hubnumtextField;
+    }
+
+    public void setHubnumtextField(JTextField hubnumtextField) {
+        this.hubnumtextField = hubnumtextField;
+    }
 
     public JPanel getMainPanel() {
         return mainPanel;
@@ -267,38 +277,79 @@ public class MainFrame extends JFrame {
         this.descriptionIsShownHereTextArea = descriptionIsShownHereTextArea;
     }
 
+    public JLabel getlabelIcon() {
+        return labelIcon;
+    }
+
+    public void setlabelIcon(JLabel labelIcon) {
+        this.labelIcon = labelIcon;
+    }
+
+
     public MainFrame() {
+
         setTitle("Hub");
         setContentPane(mainPanel);
-        setSize(1500, 700);
+        setSize(900, 800);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
         Hubs hub1 = new Hubs();
+        Hubs hub2 = new Hubs();
+        Hubs hub3 = new Hubs();
+        companyLogoLabel.setSize(250,180);
+
 
 
         pileButton.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                try {
+                    int id = Integer.parseInt(textField1.getText());
+                    int weight = Integer.parseInt(textField2.getText());
+                    if (!a1RadioButton.isSelected() && !a2RadioButton.isSelected() && !a3RadioButton.isSelected()) {
+                        throw new Exception("Priority not assessed, please select it");
+                    } } catch (NumberFormatException exception) {
+                    JOptionPane.showMessageDialog(MainFrame.this, "ID Number and Weight must be integers", "Wrong Input", JOptionPane.ERROR_MESSAGE);
+                } catch (Exception exception) {
+                    JOptionPane.showMessageDialog(MainFrame.this, exception.getMessage(), "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                }
                 Containers cont1 = new Containers();
                 cont1.setIdentifier(Integer.parseInt(textField1.getText()));
                 cont1.setWeight(Integer.parseInt(textField2.getText()));
                 cont1.setDescription(textArea1.getText());
                 cont1.setCompanySend(textField3.getText());
                 cont1.setCompanyReceives(textField4.getText());
-                cont1.setCountryOrigin((String)comboBox1.getSelectedItem());
+                cont1.setCountryOrigin((String) comboBox1.getSelectedItem());
                 cont1.setCustoms(customInspectionCheckBox.isSelected());
-                if(a1RadioButton.isSelected()){
+                if (a1RadioButton.isSelected()) {
                     cont1.priority = 1;
-                }
-                else if(a2RadioButton.isSelected()){
+                } else if (a2RadioButton.isSelected()) {
                     cont1.priority = 2;
-                }
-                else if(a3RadioButton.isSelected()){
+                } else if (a3RadioButton.isSelected()) {
                     cont1.priority = 3;
                 }
-                hub1.setContainer(cont1);
-                textArea2.setText(hub1.printHub());
+
+                if(hub1.setContainer(cont1)==true){
+                    textArea2.setText("Hub 1\n"+hub1.printHub());
+                }
+                else if(hub1.setContainer(cont1)==false){
+                    if(hub2.setContainer(cont1)==true){
+                        textArea2.setText("Hub 2\n" + hub2.printHub());
+                    }
+                    else if(hub2.setContainer(cont1)==false){
+                        try{
+                            if(hub3.setContainer(cont1)==false){
+                                throw new Exception("This column of the hubs is full");
+                            }}catch(Exception excp){
+                            JOptionPane.showMessageDialog(MainFrame.this,excp.getMessage(),"Full", JOptionPane.ERROR_MESSAGE);
+                        }
+                        textArea2.setText("Hub 3\n" + hub3.printHub());
+                    }
+                }
+
+
+
             }
         });
 
@@ -307,8 +358,36 @@ public class MainFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int column = Integer.parseInt(columnNumberTextField.getText());
-                hub1.delete_container(column);
-                textArea2.setText(hub1.printHub());
+                int hub = Integer.parseInt(hubnumtextField.getText());
+                if(hub == 1){
+                    try{
+                       if(hub1.delete_container(column)==false){
+                           throw new Exception("There are no containers in this column of hub 1");
+                       }}catch(Exception excp){
+                        JOptionPane.showMessageDialog(MainFrame.this,excp.getMessage(),"Empty", JOptionPane.ERROR_MESSAGE);
+                    }
+                    textArea2.setText("Hub 1\n" + hub1.printHub());
+                }
+                else if(hub==2){
+                    try{
+                        if(hub2.delete_container(column)==false){
+                            throw new Exception("There are no containers in this column of hub 2");
+                        }}catch(Exception excp){
+                        JOptionPane.showMessageDialog(MainFrame.this,excp.getMessage(),"Empty", JOptionPane.ERROR_MESSAGE);
+                    }
+                    textArea2.setText("Hub 2\n" + hub2.printHub());
+                }
+                else if(hub == 3){
+                    try{
+                        if(hub3.delete_container(column)==false){
+                            throw new Exception("There are no containers in this column of hub 3");
+                        }}catch(Exception excp){
+                        JOptionPane.showMessageDialog(MainFrame.this,excp.getMessage(),"Empty", JOptionPane.ERROR_MESSAGE);
+                    }
+                    textArea2.setText("Hub 3\n" + hub3.printHub());
+
+                }
+
 
             }
         });
@@ -325,16 +404,19 @@ public class MainFrame extends JFrame {
         numberOfContainersButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if ( e.getSource() == numberOfContainersButton){
-                    String country = (String)comboBox2.getSelectedItem();
-                    int count = (int)hub1.countContainers(country);
-                    putNumberHereTextField.setText(" " +count);
+                if (e.getSource() == numberOfContainersButton) {
+                    String country = (String) comboBox2.getSelectedItem();
+                    int count = (int) hub1.countContainers(country)+ hub2.countContainers(country) + hub3.countContainers(country);
+                    putNumberHereTextField.setText(" " + count);
                 }
             }
         });
     }
+
     public static void main(String[] args) {
         MainFrame prueba = new MainFrame();
 
     }
+
 }
+

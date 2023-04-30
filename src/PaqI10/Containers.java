@@ -90,14 +90,14 @@ public class Containers {
     @Override
     public String toString() {
         return "Containers{" +
-                "identifier=" + identifier +
-                ", weight=" + weight +
-                ", countryOrigin='" + countryOrigin + '\'' +
-                ", customs=" + customs +
-                ", priority=" + priority +
-                ", description='" + description + '\'' +
-                ", companySend='" + companySend + '\'' +
-                ", companyReceives='" + companyReceives + '\'' +
+                "\nidentifier=" + identifier +
+                ", \nweight=" + weight +
+                ", \ncountryOrigin='" + countryOrigin + '\'' +
+                ", \ncustoms=" + customs +
+                ", \npriority=" + priority +
+                ", \ndescription='" + description + '\'' +
+                ", \ncompanySend='" + companySend + '\'' +
+                ", \ncompanyReceives='" + companyReceives + '\'' +
                 '}';
     }
 }

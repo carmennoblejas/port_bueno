@@ -23,10 +23,9 @@ public class Hubs {
         this.hub = hub;
     }
 
-    @Override
     public String toString() {
         return "Hubs{" +
-                "hub=" + Arrays.toString(hub) +
+                "hub=" + hub.toString() +
                 '}';
     }
 
@@ -56,50 +55,53 @@ public class Hubs {
         }
     }
 
-    public void setContainer(Containers cont) {
+    public boolean setContainer(Containers cont) {
         if (cont == null) {
             System.out.println("Container cannot be null");
         }
-
         if (cont.priority == 1) {
             for (int i = 9; i >= 0; i--) {
                 if (hub[i][0] == null) {
                     hub[i][0] = cont;
                     System.out.println("Successful");
-                    return;
+                    return true;
                 }
             }
+            return false;
         } else if (cont.priority == 2) {
             for (int i = 9; i >= 0; i--) {
                 if (hub[i][1] == null) {
                     hub[i][1] = cont;
                     System.out.println("Successful");
-                    return;
+                    return true;
                 }
             }
+            return false;
         } else if (cont.priority == 3) {
             for (int i = 2; i < 12; i++) {
                 for (int j = 9; j >= 0; j--) {
                     if (hub[j][i] == null) {
                         hub[j][i] = cont;
                         System.out.println("Successful");
-                        return;
+                        return true;
                     }
                 }
             }
         }
+        return false;
     }
 
 
-    public void delete_container(int column) {
+    public boolean delete_container(int column) {
         for (int i = 0; i < 10; i++) {
             if (hub[i][column - 1] != null) {
                 hub[i][column - 1] = null;
                 System.out.println("Unstack successful");
-                return;
+                return true;
             }
         }
         System.out.println("There are no containers in this column");
+        return false;
     }
 
     public String printHub() { //toString method we can use this or the one created with the Array toString
