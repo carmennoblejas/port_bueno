@@ -313,6 +313,7 @@ public class MainFrame extends JFrame {
                     JOptionPane.showMessageDialog(MainFrame.this, "ID Number and Weight must be integers", "Wrong Input", JOptionPane.ERROR_MESSAGE);
                 } catch (Exception exception) {
                     JOptionPane.showMessageDialog(MainFrame.this, exception.getMessage(), "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                    return;
                 }
                 Containers cont1 = new Containers();
                 cont1.setIdentifier(Integer.parseInt(textField1.getText()));
