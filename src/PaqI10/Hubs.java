@@ -156,15 +156,29 @@ public class Hubs {
     }
 
 
-    public void checkedHubs(int weight, int numHub){
+    public String checkedHubs(int weight, int numHub){
+        StringBuilder stringHub = new StringBuilder();
+        int counter = 1;
+        int columns=0;
+        int rows = 0;
+        boolean yes = false;
+        stringHub.append("Containers with less weight:\n");
         for(int i=0; i<10; i++){
             for (int j = 0; j < 12; j++) {
-                if(hub[i][j].weight<= weight){
-                    hub[i][j].customs = true;
-                    hub[i][j].reducedToString();
+                if (hub[i][j] != null) {
+                    if (hub[i][j].weight <= weight) {
+                        hub[i][j].customs = true;
+                        stringHub.append("Container "+counter);
+                        stringHub.append(hub[i][j].reducedToString());
+                        counter++;
+                        yes = true;
+                    }
+                    stringHub.append("\n");
                 }
             }
         }
+        if(yes==true){return stringHub.toString();}
+        return "There are no containers with less weight";
     }
 }
 

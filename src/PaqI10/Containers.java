@@ -102,10 +102,10 @@ public class Containers {
     }
 
     public String reducedToString(){//We will use it once we change the custom boolean
-        return "Containers{" +
+        return
                 "\nidentifier=" + identifier +
                 ", \nweight=" + weight +
                 ", \ncompanySend='" + companySend + '\'' +
-                ", \ncustoms=" + customs + "}";
+                ", \ncustoms=" + customs+ "\n";
     }
 }
