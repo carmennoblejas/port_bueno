@@ -100,4 +100,12 @@ public class Containers {
                 ", \ncompanyReceives='" + companyReceives + '\'' +
                 '}';
     }
+
+    public String reducedToString(){//We will use it once we change the custom
+        return "Containers{" +
+                "\nidentifier=" + identifier +
+                ", \nweight=" + weight +
+                ", \ncompanySend='" + companySend + '\'' +
+                ", \ncustoms=" + customs + "}";
+    }
 }

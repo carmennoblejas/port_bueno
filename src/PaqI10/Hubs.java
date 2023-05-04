@@ -155,6 +155,17 @@ public class Hubs {
         return counter;
     }
 
+
+    public void checkedHubs(int weight, int hubnum){
+        for(int i=0; i<10; i++){
+            for (int j = 0; j < 12; j++) {
+                if(hub[i][j].weight<= weight){
+                    hub[i][j].customs = true;
+                    hub[i][j].reducedToString();
+                }
+            }
+        }
+    }
 }
 
 
