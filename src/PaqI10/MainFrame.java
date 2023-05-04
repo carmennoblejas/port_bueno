@@ -3,8 +3,11 @@ package PaqI10;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowAdapter;
 
-public class MainFrame extends JFrame {
+
+public class MainFrame extends JFrame{
     private JPanel mainPanel;
     private JLabel IDNumberLabel;
     private JTextField textField1;
@@ -35,6 +38,7 @@ public class MainFrame extends JFrame {
     private JTextField columnNumberTextField;
     private JTextArea descriptionIsShownHereTextArea;
     private JTextField hubnumtextField;
+    private JButton checkcustombotton;
     private JLabel labelIcon;
 
     public JTextField getHubnumtextField() {
@@ -285,7 +289,6 @@ public class MainFrame extends JFrame {
         this.labelIcon = labelIcon;
     }
 
-
     public MainFrame() {
 
         setTitle("Hub");
@@ -412,10 +415,52 @@ public class MainFrame extends JFrame {
                 }
             }
         });
+
+        checkcustombotton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int hub = Integer.parseInt(hubnumtextField.getText());
+                int weight = Integer.parseInt(textField2.getText());
+                try{
+                    if(hub!=1 && hub!= 2&& hub!=3){
+                        throw new Exception("Please select a valid hub");
+                    }
+                }catch(Exception exp){
+                    JOptionPane.showMessageDialog(MainFrame.this,exp.getMessage(),"Empty", JOptionPane.ERROR_MESSAGE);
+                }
+                 if(hub == 1) {
+                     hub1.checkedHubs(weight, hub);
+                     JOptionPane.showMessageDialog(MainFrame.this, " " +hub1.checkedHubs(weight, hub), "Information", JOptionPane.INFORMATION_MESSAGE);
+                 }
+                else if(hub == 2){
+                    hub2.checkedHubs(weight, hub);
+                     JOptionPane.showMessageDialog(MainFrame.this, " " +hub2.checkedHubs(weight, hub), "Information", JOptionPane.INFORMATION_MESSAGE);
+                }
+                else if(hub == 3){
+                    hub3.checkedHubs(weight, hub);
+                     JOptionPane.showMessageDialog(MainFrame.this, " " +hub3.checkedHubs(weight, hub), "Information", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        });
     }
+
+    public static class MyWindowAdapter extends WindowAdapter{
+        @Override
+        public void windowClosing(WindowEvent e) {
+            int confirmed = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit the program?", "Exit Program Message Box", JOptionPane.YES_NO_OPTION);
+            if(confirmed == JOptionPane.YES_NO_OPTION){
+                e.getWindow().dispose();
+            }
+        }
+    }
+
+
 
     public static void main(String[] args) {
         MainFrame prueba = new MainFrame();
+        prueba.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        prueba.addWindowListener(new MyWindowAdapter());
+        prueba.setVisible(true);
 
     }
 

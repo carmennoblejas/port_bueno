@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="port_bueno:jar2">
+    <output-path>$PROJECT_DIR$/out/artifacts/port_bueno_jar2</output-path>
+    <root id="archive" name="port_bueno.jar">
+      <element id="module-output" name="port_bueno" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/PaqI10/port_bueno.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
