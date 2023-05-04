@@ -156,7 +156,7 @@ public class Hubs {
     }
 
 
-    public void checkedHubs(int weight, int hubnum){
+    public void checkedHubs(int weight, int numHub){
         for(int i=0; i<10; i++){
             for (int j = 0; j < 12; j++) {
                 if(hub[i][j].weight<= weight){

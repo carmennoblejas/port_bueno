@@ -101,7 +101,7 @@ public class Containers {
                 '}';
     }
 
-    public String reducedToString(){//We will use it once we change the custom
+    public String reducedToString(){//We will use it once we change the custom boolean
         return "Containers{" +
                 "\nidentifier=" + identifier +
                 ", \nweight=" + weight +
